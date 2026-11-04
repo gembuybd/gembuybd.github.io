@@ -13,6 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="order.js" defer></script>
 </head>
 <body>
   <header>
@@ -26,23 +27,27 @@
     <div class="hero">
       <h1>নরম কুশন ইনসোল,<br>হাঁটায় আরাম সারাদিন</h1>
       <p>চায়না ইম্পোর্টেড 4D ক্লাউড শু-ইনসোল। জুতার ভিতরে বসিয়ে দিলেই হলো। হাতে পেয়ে দেখে টাকা দিন।</p>
-      <a class="button" href="https://m.me/1291848167355119">মেসেজে অর্ডার করুন</a>
+      <a class="button" href="#order">এখনই অর্ডার করুন</a>
     </div>
 
     <section>
       <h2>কোনটা নিবেন</h2>
       <div class="types">
         <div class="type">
+          <img src="img/lime.webp" alt="লাইম রঙের 4D ক্লাউড ইনসোল, হাতে চাপ দেওয়া; উপরের দিকটা গ্রে" loading="lazy">
+          <div>
+            <h3>লাইম-গ্রে 4D ক্লাউড</h3>
+            <p>নিচে লাইম রঙের মোটা বাবল কুশন, উপরে নরম গ্রে কাপড়। আর্চ সাপোর্ট আর U-আকৃতির হিল কাপ।</p>
+            <p class="stock">সাইজ ৩৭/৩৮, ৩৯/৪০, ৪১/৪২</p>
+          </div>
+        </div>
+        <div class="type">
           <img src="img/white.webp" alt="সাদা ক্লাউড ইনসোল, হিলে নীল কুশন" loading="lazy">
-          <div><h3>সাদা ক্লাউড</h3><p>নরম বাবল কুশন, হিলে নীল প্যাড</p></div>
-        </div>
-        <div class="type">
-          <img src="img/lime.webp" alt="লাইম রঙের 4D ক্লাউড ইনসোল, হাতে চাপ দেওয়া" loading="lazy">
-          <div><h3>লাইম 4D ক্লাউড</h3><p>মোটা বাবল কুশন, চাপ দিলে নরম</p></div>
-        </div>
-        <div class="type">
-          <img src="img/grey.webp" alt="গ্রে ও ডার্ক গ্রে ইনসোল পাশাপাশি" loading="lazy">
-          <div><h3>গ্রে ও ডার্ক গ্রে</h3><p>সব জুতায় মানায়, দাগ কম বোঝা যায়</p></div>
+          <div>
+            <h3>সাদা ক্লাউড</h3>
+            <p>নরম বাবল কুশন, হিলে নীল প্যাড।</p>
+            <p class="stock">শুধু ৩৯/৪০ সাইজ</p>
+          </div>
         </div>
       </div>
     </section>
@@ -55,28 +60,86 @@
           <div class="price"><span>২ জোড়া</span> <strong>৳৬৯০</strong></div>
           <div class="price"><span>৩ জোড়া</span> <strong>৳৯৯০</strong></div>
         </div>
-        <p class="note">ডেলিভারি চার্জ আলাদা। সারা বাংলাদেশে ক্যাশ অন ডেলিভারি।</p>
+        <p class="note">ডেলিভারি চার্জ ঢাকা সিটিতে ৳৭০, ঢাকার বাইরে ৳১৩০। সারা বাংলাদেশে ক্যাশ অন ডেলিভারি।</p>
       </div>
     </section>
 
-    <section>
-      <h2>সাইজ</h2>
-      <ul class="sizes">
-        <li>৩৭/৩৮</li>
-        <li>৩৯/৪০</li>
-        <li>৪১/৪২</li>
-      </ul>
-      <p class="note">অর্ডারের সময় আপনার জুতার সাইজ জানিয়ে দিন।</p>
+    <section id="order">
+      <h2>অর্ডার করুন</h2>
+      <noscript><p class="card">অর্ডার ফর্মটি চালাতে জাভাস্ক্রিপ্ট লাগে। <a href="https://m.me/1291848167355119">মেসেঞ্জারে অর্ডার করুন</a>।</p></noscript>
+      <form class="card order" id="order-form" novalidate>
+        <fieldset>
+          <legend>কয় জোড়া</legend>
+          <div class="packs">
+            <label><input type="radio" name="pairs" value="1" checked><span>১ জোড়া <strong>৳৩৯০</strong></span></label>
+            <label><input type="radio" name="pairs" value="2"><span>২ জোড়া <strong>৳৬৯০</strong></span></label>
+            <label><input type="radio" name="pairs" value="3"><span>৩ জোড়া <strong>৳৯৯০</strong></span></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>ধরন আর সাইজ</legend>
+          <div id="pair-rows"></div>
+          <p class="note">আপনার জুতার সাইজ যত, সেই সাইজটা বাছুন। ৩ জোড়ার বেশি নিতে চাইলে <a href="https://m.me/1291848167355119">মেসেজ দিন</a>।</p>
+        </fieldset>
+
+        <label class="field">আপনার নাম
+          <input name="name" autocomplete="name" required>
+        </label>
+        <label class="field">মোবাইল নম্বর
+          <input name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="01XXXXXXXXX" required>
+        </label>
+
+        <fieldset>
+          <legend>ডেলিভারি কোথায়</legend>
+          <div class="packs">
+            <label><input type="radio" name="area" value="dhaka"><span>ঢাকা সিটির ভিতরে <strong>৳৭০</strong></span></label>
+            <label><input type="radio" name="area" value="outside"><span>ঢাকা সিটির বাইরে <strong>৳১৩০</strong></span></label>
+          </div>
+        </fieldset>
+
+        <label class="field">পুরো ঠিকানা
+          <textarea name="address" rows="3" autocomplete="street-address" placeholder="বাসা ও রোড নম্বর, এলাকা, থানা, জেলা" required></textarea>
+        </label>
+        <label class="field">কিছু বলার থাকলে <span class="optional">(না লিখলেও চলবে)</span>
+          <textarea name="note" rows="2"></textarea>
+        </label>
+        <label class="trap" aria-hidden="true">Website <input name="website" tabindex="-1" autocomplete="off"></label>
+
+        <div class="total" id="order-total" aria-live="polite"></div>
+        <p class="error" id="order-error" role="alert" hidden></p>
+        <button class="button" type="submit">অর্ডার কনফার্ম করুন</button>
+        <p class="note">টাকা দিবেন ইনসোল হাতে পেয়ে। অর্ডারের পর আমরা কল করে কনফার্ম করবো।</p>
+      </form>
+
+      <div class="card done" id="order-done" tabindex="-1" hidden>
+        <h3>ধন্যবাদ! অর্ডার পেয়েছি।</h3>
+        <p class="order-no">অর্ডার নম্বর <strong id="done-id"></strong></p>
+        <p id="done-summary"></p>
+        <p>কোনো প্রশ্ন থাকলে <a href="https://m.me/1291848167355119">মেসেজ দিন</a>।</p>
+      </div>
+
+      <div class="card pending" id="order-pending" tabindex="-1" hidden>
+        <h3>আপনার অর্ডারটি আমাদের কাছে পৌঁছেছে কিনা নিশ্চিত হতে পারিনি</h3>
+        <p>সম্ভবত ইন্টারনেটের সমস্যা। আবার পাঠান, একই অর্ডার দুইবার যাবে না। না গেলে নিচের লেখাটা কপি করে মেসেঞ্জারে পাঠিয়ে দিন।</p>
+        <textarea id="pending-text" rows="9" readonly aria-label="আপনার অর্ডার"></textarea>
+        <div class="actions">
+          <button class="button" type="button" id="pending-send">আবার পাঠান</button>
+          <button class="button ghost" type="button" id="pending-copy">কপি করুন</button>
+          <a class="button ghost" href="https://m.me/1291848167355119">মেসেঞ্জার খুলুন</a>
+        </div>
+        <p class="status" id="pending-status" role="status"></p>
+        <button class="linkish" type="button" id="pending-drop">এটা বাদ দিয়ে নতুন অর্ডার করুন</button>
+      </div>
     </section>
 
     <section>
       <h2>কীভাবে অর্ডার করবেন</h2>
       <ol class="steps">
-        <li>মেসেঞ্জারে ধরন, সাইজ আর কয় জোড়া চান জানান।</li>
-        <li>আপনার নাম, ফোন নম্বর আর ঠিকানা দিন।</li>
+        <li>উপরের ফর্মটা পূরণ করুন, অথবা <a href="https://m.me/1291848167355119">মেসেঞ্জারে</a> ধরন, সাইজ আর ঠিকানা জানান।</li>
+        <li>আমরা কল করে অর্ডার কনফার্ম করবো।</li>
         <li>ইনসোল হাতে পেয়ে দেখে টাকা দিন।</li>
       </ol>
-      <p><a class="button" href="https://m.me/1291848167355119">মেসেজে অর্ডার করুন</a></p>
     </section>
   </main>
 
