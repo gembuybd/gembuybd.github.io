@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>GemBuybd · নরম কুশন ইনসোল</title>
-  <meta name="description" content="নরম 4D কুশন শু-ইনসোল। ১ জোড়া ৩৯০ টাকা, সাইজ ৩৭ থেকে ৪২, সারা বাংলাদেশে ক্যাশ অন ডেলিভারি।">
+  <meta name="description" content="নরম 4D কুশন শু-ইনসোল। সাইজ ৩৭ থেকে ৪২, সারা বাংলাদেশে ক্যাশ অন ডেলিভারি।">
   <meta property="og:title" content="GemBuybd · নরম কুশন ইনসোল">
-  <meta property="og:description" content="১ জোড়া ৩৯০ টাকা · সাইজ ৩৭/৩৮, ৩৯/৪০, ৪১/৪২ · ক্যাশ অন ডেলিভারি">
+  <meta property="og:description" content="সাইজ ৩৭/৩৮, ৩৯/৪০, ৪১/৪২ · সারা বাংলাদেশে ক্যাশ অন ডেলিভারি">
   <meta property="og:image" content="https://gembuybd.github.io/img/share.jpg">
   <link rel="icon" href="img/icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,6 +22,10 @@
       <a href="./">GemBuybd</a>
     </div>
   </header>
+  <!-- Shown and filled in by order.js while the launch offer runs. -->
+  <div class="offer" id="offer" hidden>
+    <div class="wrap"><strong id="offer-title"></strong> <span id="offer-left"></span></div>
+  </div>
 
   <main class="wrap">
     <div class="hero">
@@ -56,10 +60,11 @@
       <h2>দাম</h2>
       <div class="card">
         <div class="prices">
-          <div class="price"><span>১ জোড়া</span> <strong>৳৩৯০</strong></div>
-          <div class="price"><span>২ জোড়া</span> <strong>৳৬৯০</strong></div>
-          <div class="price"><span>৩ জোড়া</span> <strong>৳৯৯০</strong></div>
+          <div class="price"><span>১ জোড়া</span> <strong data-pack="1">৳৩৯০</strong></div>
+          <div class="price"><span>২ জোড়া</span> <strong data-pack="2">৳৬৯০</strong></div>
+          <div class="price"><span>৩ জোড়া</span> <strong data-pack="3">৳৯৯০</strong></div>
         </div>
+        <p class="note offer-note" id="offer-note" hidden></p>
         <p class="note">ডেলিভারি চার্জ ঢাকা সিটিতে ৳৭০, ঢাকার বাইরে ৳১৩০। সারা বাংলাদেশে ক্যাশ অন ডেলিভারি।</p>
       </div>
     </section>
@@ -71,9 +76,9 @@
         <fieldset>
           <legend>কয় জোড়া</legend>
           <div class="packs">
-            <label><input type="radio" name="pairs" value="1" checked><span>১ জোড়া <strong>৳৩৯০</strong></span></label>
-            <label><input type="radio" name="pairs" value="2"><span>২ জোড়া <strong>৳৬৯০</strong></span></label>
-            <label><input type="radio" name="pairs" value="3"><span>৩ জোড়া <strong>৳৯৯০</strong></span></label>
+            <label><input type="radio" name="pairs" value="1" checked><span>১ জোড়া <strong data-pack="1">৳৩৯০</strong></span></label>
+            <label><input type="radio" name="pairs" value="2"><span>২ জোড়া <strong data-pack="2">৳৬৯০</strong></span></label>
+            <label><input type="radio" name="pairs" value="3"><span>৩ জোড়া <strong data-pack="3">৳৯৯০</strong></span></label>
           </div>
         </fieldset>
 

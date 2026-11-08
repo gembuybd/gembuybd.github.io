@@ -30,6 +30,13 @@ header .wrap { display: flex; align-items: center; gap: 12px; padding-block: 10p
 header img { width: 52px; height: 52px; border-radius: 12px; }
 header a { font-weight: 700; font-size: 22px; color: var(--teal); text-decoration: none; }
 
+/* The launch offer bar stays on screen while scrolling, so the countdown is always in view. */
+.offer { position: sticky; top: 0; z-index: 10; background: #b3261e; color: #fff; }
+.offer .wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 12px; padding-block: 8px; text-align: center; font-size: 15px; line-height: 1.45; }
+.offer strong { color: #ffe066; font-size: 16px; }
+[data-pack] s { margin-right: 4px; color: #c0362c; font-size: 0.62em; font-weight: 600; }
+.offer-note { color: #a3261d; font-weight: 600; }
+
 .hero { padding: 40px 0 28px; }
 .hero h1 { margin: 0 0 8px; font-size: clamp(28px, 6vw, 42px); line-height: 1.25; color: var(--teal); }
 .hero p { margin: 0 0 20px; color: var(--muted); font-size: 18px; }

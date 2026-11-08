@@ -12,6 +12,11 @@ const TIMEOUT = 15000;
 const PENDING_KEY = "gembuybd-pending-order";
 
 const PACKS = { 1: 390, 2: 690, 3: 990 };
+// Launch offer: these prices until OFFER_ENDS, then PACKS again. Every price on the page is filled in
+// from here, and the page switches back by itself at the deadline, even if it's open at that moment.
+const OFFER_PACKS = { 1: 370, 2: 680, 3: 950 };
+const OFFER_ENDS = Date.parse("2026-11-12T00:00:00+06:00");
+const OFFER_UNTIL = "১১ নভেম্বর রাত ১২টা";
 const DELIVERY = {
   dhaka: { label: "ঢাকা সিটির ভিতরে", fee: 70 },
   outside: { label: "ঢাকা সিটির বাইরে", fee: 130 },
@@ -41,6 +46,44 @@ let waiting = null;
 
 const bangla = (n) => n.toLocaleString("bn-BD");
 const taka = (n) => "৳" + bangla(n);
+const onOffer = () => Date.now() < OFFER_ENDS;
+const packPrice = (pairs) => (onOffer() ? OFFER_PACKS : PACKS)[pairs];
+
+// "২ দিন ৫ ঘণ্টা ৩ মিনিট ৯ সেকেন্ড", leaving out units that are still zero at the front.
+function timeLeft(ms) {
+  const s = Math.max(0, Math.floor(ms / 1000));
+  const units = [[Math.floor(s / 86400), "দিন"], [Math.floor(s / 3600) % 24, "ঘণ্টা"],
+                 [Math.floor(s / 60) % 60, "মিনিট"], [s % 60, "সেকেন্ড"]];
+  const first = units.findIndex(([n]) => n > 0);
+  return units.slice(first === -1 ? 3 : first).map(([n, unit]) => `${bangla(n)} ${unit}`).join(" ");
+}
+
+// Each [data-pack] element shows that pack's price; during the offer, the regular one struck through.
+function showPrices() {
+  const offer = onOffer();
+  document.querySelectorAll("[data-pack]").forEach((el) => {
+    const pairs = el.dataset.pack;
+    const now = document.createTextNode(taka(packPrice(pairs)));
+    if (!offer) return el.replaceChildren(now);
+    const was = document.createElement("s");
+    was.textContent = taka(PACKS[pairs]);
+    el.replaceChildren(was, " ", now);
+  });
+  document.getElementById("offer").hidden = !offer;
+  document.getElementById("offer-note").hidden = !offer;
+}
+
+let countdown = null;
+function tick() {
+  const left = OFFER_ENDS - Date.now();
+  if (left > 0) {
+    document.getElementById("offer-left").textContent = `অফার শেষ হতে বাকি ${timeLeft(left)}`;
+    return;
+  }
+  clearInterval(countdown);
+  showPrices();
+  showTotal();
+}
 
 function option(value, text, disabled = false) {
   const o = document.createElement("option");
@@ -88,7 +131,8 @@ function current() {
     return { name: PRODUCTS[product.value].name, size: size.value, select: size };
   });
   const area = DELIVERY[fields.area.value];
-  return { pairs, items, area, price: PACKS[pairs], total: PACKS[pairs] + (area ? area.fee : 0) };
+  const price = packPrice(pairs);
+  return { pairs, items, area, price, offer: onOffer(), total: price + (area ? area.fee : 0) };
 }
 
 function showTotal() {
@@ -139,7 +183,8 @@ function record(order) {
     phone: cleanPhone(fields.phone.value),
     area: order.area.label,
     address: fields.address.value.trim(),
-    items: `${bangla(order.pairs)} জোড়া: ` + order.items.map((item) => `${item.name} ${item.size}`).join(", "),
+    items: `${bangla(order.pairs)} জোড়া${order.offer ? " (লঞ্চিং অফার)" : ""}: ` +
+           order.items.map((item) => `${item.name} ${item.size}`).join(", "),
     total: order.total,
     note: fields.note.value.trim(),
   };
@@ -281,7 +326,14 @@ sendAgain.addEventListener("click", () => deliver(waiting, sendAgain));
 document.getElementById("pending-copy").addEventListener("click", copyOrder);
 document.getElementById("pending-drop").addEventListener("click", dropPending);
 setPairs(Number(fields.pairs.value));
+document.getElementById("offer-title").textContent = `🔥 লঞ্চিং অফার চলছে! ১ জোড়া মাত্র ${taka(OFFER_PACKS[1])}`;
+document.getElementById("offer-note").textContent = `লঞ্চিং অফার চলবে ${OFFER_UNTIL} পর্যন্ত, তারপর আগের দাম।`;
+showPrices();
 showTotal();
+if (onOffer()) {
+  tick();
+  countdown = setInterval(tick, 1000);
+}
 
 // An order from an earlier visit that was never confirmed: offer it again instead of the empty form.
 const left = remembered();
